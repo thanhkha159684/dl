@@ -1,0 +1,2 @@
+menu_block/menu_block.module
++ Support menu translation
