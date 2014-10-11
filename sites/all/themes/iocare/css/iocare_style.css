@@ -1,0 +1,74 @@
+*{
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+.hidden{
+    display: none;
+}
+.container{
+    width:960px;
+}
+
+.align-middle{
+    top: 50%;
+    transform :translateY(-50%);
+    -webkit-transform :translateY(-50%);
+    -moz-transform :translateY(-50%);
+    -ms-transform :translateY(-50%);
+    -o-transform :translateY(-50%);
+}
+
+html body.admin-menu {
+margin-top: 60px !important;
+}
+#mini-panel-top_page {
+    position: relative
+}
+.pane-page-logo {
+    float: left;
+    width: 200px;
+    position: relative;
+    z-index: 1;
+}
+.pane-search-form{
+    padding-right: 200px;
+    margin-top: 10px;
+}
+.pane-search-form [id^="edit-search-block-form"]{
+    padding: 14px 10px;
+    border-radius: 10px;
+    border:2px solid #3c5158;
+    width: 300px;
+    margin-left: 100px;
+}
+.pane-search-form [id^="edit-submit"]{
+    background: url("images/quick-search-btn.png") no-repeat  50% 50% transparent;
+    border:none;
+    height:24px;
+    color: transparent;
+    margin-left: -50px;
+    
+}
+.pane-iocare-core-user-hearder-block {
+    position: absolute;
+    top: 0px;
+    right:0px;
+    width: 200px;
+}
+.pane-iocare-core-user-hearder-block .logged .username {
+    background: url("images/collapsible.png") no-repeat 100% 50%;
+    padding-right: 10px;
+}
+.pane-iocare-core-user-hearder-block li{
+    float: left;
+    padding:0px 8px;
+}
+.pane-iocare-core-user-hearder-block .separator{
+    width:1px;
+    height: 10px;
+    float: left;
+    background: #666;
+    position: absolute;
+    top: 48%;
+}

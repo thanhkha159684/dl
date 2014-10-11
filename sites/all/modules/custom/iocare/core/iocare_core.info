@@ -1,0 +1,6 @@
+name = IOCare core
+description = Provide core feature for IO Care website
+core        = 7.x
+package     = IOCare
+version     = 7.x-1.0
+
