@@ -107,10 +107,7 @@
     <!-- !Navigation -->
     <?php print render($page['menu_bar']); ?>
     <?php if ($primary_navigation): print $primary_navigation; endif; ?>
-    <?php// if ($secondary_navigation): print $secondary_navigation; endif; ?>
-
-
-
+    
     <!-- !Messages and Help -->
     <?php print $messages; ?>
     <?php print render($page['help']); ?>
