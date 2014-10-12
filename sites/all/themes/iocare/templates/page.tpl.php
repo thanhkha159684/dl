@@ -109,8 +109,7 @@
     <?php if ($primary_navigation): print $primary_navigation; endif; ?>
     <?php// if ($secondary_navigation): print $secondary_navigation; endif; ?>
 
-    <!-- !Breadcrumbs -->
-    <?php if ($breadcrumb): print $breadcrumb; endif; ?>
+
 
     <!-- !Messages and Help -->
     <?php print $messages; ?>
@@ -134,11 +133,7 @@
             <?php if ($title || $primary_local_tasks || $secondary_local_tasks || $action_links = render($action_links)): ?>
               <header<?php print $content_header_attributes; ?>>
 
-                <?php if ($title): ?>
-                  <h1 id="page-title">
-                    <?php print $title; ?>
-                  </h1>
-                <?php endif; ?>
+            
 
                 <?php if ($primary_local_tasks || $secondary_local_tasks || $action_links): ?>
                   <div id="tasks">
@@ -160,10 +155,10 @@
 
               </header>
             <?php endif; ?>
-
             <!-- !Main Content -->
             <?php if ($content = render($page['content'])): ?>
               <div id="content" class="region">
+                
                 <?php print $content; ?>
               </div>
             <?php endif; ?>
@@ -191,12 +186,27 @@
     <?php print render($page['tertiary_content']); ?>
 
     <!-- !Footer -->
-    <?php if ($page['footer'] || $attribution): ?>
-      <footer<?php print $footer_attributes; ?>>
-        <?php print render($page['footer']); ?>
-        <?php print $attribution; ?>
-      </footer>
-    <?php endif; ?>
-
+    <footer id="footer" class="clearfix" role="contentinfo">
+      <div class="region region-footer">
+        <div class="region-inner clearfix">
+          <table class="footer-info">
+            <tbody>
+              <tr>
+                  <td>
+                      <ul>
+                          <li>Trụ sở chính TP.HCM<br>Địa chỉ: Lầu 3 Tòa nhà Copac, Số 12, Tôn Đản, Phường 13, Quận 4, TP.HCM<br>Hotline: (08) 3941 5383 - Mobile: 0916 568 817<br>Fax: (08) 3940 5034</li>
+                      </ul>
+                  </td>
+                  <td style="border-left: 1px solid #f8f8f8;padding-left:10%">
+                      <ul>
+                          <li>Văn phòng Hà Nội<br>Địa chỉ: 25 Thanh Miến, Quận Đống Đa, TP. Hà Nội<br>Hotline: (04) 3747 1649 - Mobile: 0969 893 225<br>Fax: (04) 3747 1650</li>
+                      </ul>
+                  </td>
+                  </tr>
+                </tbody>
+          </table>
+        </div>
+      </div>
+    </footer>
   </div>
 </div>

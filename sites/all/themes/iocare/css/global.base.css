@@ -478,7 +478,7 @@ table {
  * $gutter-width is set in _base.scss
  */
 #main-content,
-.block-inner,
+
 .pane-inner,
 .menu-wrapper,
 .branding-elements,
