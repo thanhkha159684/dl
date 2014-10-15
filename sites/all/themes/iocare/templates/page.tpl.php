@@ -99,14 +99,30 @@
 
     <header<?php print $header_attributes; ?>>
 
-      <!-- !Header Region -->
-      <?php print render($page['header']); ?>
 
+      <div id="logo">
+        <a href="/"><img src="/<?php print path_to_theme();?>/logo.png"/></a>
+      </div>
+      <div id="slogan">
+        CÔNG TY THNH THƯƠNG MẠI VÀ DỊCH VỤ - SỬA CHỮA
+        <div class="large">
+          ĐIỆN LẠNH ĐÔNG Á
+        </div>
+      </div>
+    <div class="header-cart icon-shopping-cart">
+      
+     <?php
+      global $user;
+      $order = commerce_cart_order_load($user->uid);
+      $quantity = ($count = @count($order->commerce_line_items['und']))?$count :0;
+      ?>
+      <a href="/cart" class="">Giỏ hàng (<?php print $quantity?>)</a>
+    </div>
+     <!-- !Header Region -->
+      <?php print render($page['header']); ?>
+     
     </header>
 
-    <!-- !Navigation -->
-    <?php print render($page['menu_bar']); ?>
-    <?php if ($primary_navigation): print $primary_navigation; endif; ?>
     
     <!-- !Messages and Help -->
     <?php print $messages; ?>
