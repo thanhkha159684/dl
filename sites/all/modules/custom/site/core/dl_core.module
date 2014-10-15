@@ -1,0 +1,53 @@
+<?php
+
+/* Hook block_info
+ */
+function dl_core_block_info() {
+  return array(
+    'user_hearder_block' => array(
+      'info' => t("User Header Block"),
+    ),
+  );
+}
+/* Hook block_info
+ */
+function dl_core_block_view($delta="") {
+  $block = array();
+  switch ($delta) {
+    case "user_hearder_block":
+    $block['content'] = iocare_core_user_header_block();
+    break;
+  }
+  return $block;
+}
+function dl_core_user_header_block() {
+  global $user;
+  if (user_is_logged_in()) {
+    $html ='<ul class="user-header-block clearfix">
+              <li class="logged"><a class="username" >'.$user->name.'</a>
+                <div class="hidden">
+                  <div class="user-logout"><a href="/user/logout">Logout</a></div>
+                </div>
+              </li>
+            </ul>';
+  } else {
+       $html ='<ul class="user-header-block clearfix">
+              <li><a href="/user">Login</a></li>
+              <span class="separator align-middle"></span>
+              <li><a href="/user/register">Signup</a></li>
+              </ul>';
+  }
+  return $html;
+}
+/*
+ * Hook form_alter
+ */
+function dl_core_form_alter(&$form,&$form_state,$form_id) {
+  if ($form_id=="product_node_form") {
+    $form['field_product']['und']['form']['title']['#access'] = false;
+  }
+}
+
+function dl_core_views_data_alter(&$data){
+  
+}
