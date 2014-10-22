@@ -1,4 +1,4 @@
-@import url("icomoon/icon-style.css");
+
 @font-face {
     font-family: SEGOEUIL;
   
@@ -16,6 +16,9 @@
       /*   url('../font/SEGOEUIL.svg') format('svg');*/
     font-weight: normal;
     font-style: normal;
+}
+.node-webform .submitted{
+    display:none;
 }
 
 body,select,input,p,label,a{
@@ -44,7 +47,7 @@ body{
 body:after{
 content: "";
 width: 100%;
-height: 142px;
+height: 110px;
 background: #797979;
 position: absolute;
 left: 0px;
@@ -52,9 +55,15 @@ bottom: 0px;
 z-index: 0;
 }
 
+
 footer{
     position: relative;
     z-index: 1;
+    padding:5px 0px;
+}
+footer table,
+footer tbody{
+    border:none !important;
 }
 footer tr{
     background: transparent !important;
@@ -63,6 +72,10 @@ footer tr{
 }
 footer td{
     border:none !important;
+    
+}
+footer p{
+    color:#fff;
 }
 
 body li a.active{
@@ -151,13 +164,26 @@ margin-left: 30px;
 
 .header-cart{
     float: right;
-    padding:10px 20px;
+    padding:20px;
+}
+.icon-shopping-cart:before{
+   content: "";
+    width: 36px;
+    height: 33px;
+    background: url('images/cart.png') no-repeat;
+    background-size: 100%;
+    display: inline-block;
 }
 #main-content-header{
     padding: 0px;
 }
 #block-system-main-menu {
 margin: 20px 0px 0px;    
+position:relative;
+}
+#block-system-main-menu ul{
+    margin: 0px;
+    padding: 0px;
 }
 #block-system-main-menu > .block-inner >ul{
 
@@ -166,13 +192,13 @@ float:left;
 margin:0px;
 background: url("images/bg_menu.png") no-repeat;
 padding: 0px;
+
+
 }
 #block-system-main-menu li{
-max-width:200px;
 word-wrap:break-word;
 float:left;
 white-space:pre-wrap;
-position:relative;
 list-style: none;
 }
 
@@ -180,11 +206,10 @@ list-style: none;
 #block-system-main-menu > .block-inner >ul >li >a{
 float:left;
 margin:10px 0px;
-padding:0px 30px ;
+padding:0px 45px ;
 text-align: center;
 text-transform:uppercase;
 border: none;
-max-width:200px;
 border-right: 1px solid #fff;
 }
 
@@ -198,29 +223,32 @@ color:#333;
 text-transform:capitalize;
 }
 
+#block-system-main-menu > .block-inner >ul > li > ul> li > a{
+    color: rgb(10, 10, 148);
+    font-weight: 400;
+}
 
-
-#block-system-main-menu ul li ul{
+#block-system-main-menu > .block-inner >ul > li > ul{
 display:none;
 position:absolute;
 top:100%;
-width:100%;
+margin:0px;
+left:0px;
+width:978px;
 z-index:10;
+background:  #fff;
 
 }
 
 #block-system-main-menu ul li ul li{
-width:180px;
+width:160px;
 margin-bottom:1px;
-background: #ccc;
-
+position: relative;
 }
 #block-system-main-menu ul> li:hover ul{
 display:block;
 }
-#block-system-main-menu ul> li:hover ul ul{
-display:none;
-}
+
 #block-system-main-menu ul> li:hover li a{
 border-right: none;
 
@@ -228,19 +256,12 @@ border-right: none;
 #block-system-main-menu ul li ul li a{
 width:100%;
 border:none;
-padding:10px 5%;
+padding:0px 5%;
 font-size:13px;
 color: #333;
 }
-#block-system-main-menu ul> li> ul> li>ul{
-margin-left:100%;
-top:0px;
-display: none;
-padding-left:1px;
-}
-#block-system-main-menu ul> li> ul> li:hover ul{
-    display: block;
-}
+
+
 
 .front #main-content-header{
     display: none;
@@ -324,6 +345,31 @@ body .view-product-categories ul{
     display: block;
 }
 
+#block-menu-menu-service li{
+    list-style:none;
+}
+#block-menu-menu-service li:before,
+.view-product-categories ul li:before {
+    content:"";
+    width: 0px;
+    height: 0px;
+    float: left;
+    margin-right: 5px;
+    margin-top: 5px;
+    border-style: solid;
+    border-width: 5px 0 5px 5px;
+    border-color: transparent transparent transparent #fa1c19;
+    line-height: 0px;
+    _border-color: #000000 #000000 #000000 #fa1c19;
+    _filter: progid:DXImageTransform.Microsoft.Chroma(color='#000000');
+}
+.view-product-categories ul li.active:before{
+    margin-top: 7px;
+    border-width: 5px 5px 0 5px;
+    border-color: #fa1c19 transparent transparent transparent;
+    _border-color: #fa1c19 #000000 #000000 #000000;
+
+}
 
 #block-views-home-product-listing-block{
     padding:  0px;
@@ -446,4 +492,8 @@ body .view-product-categories ul{
 }
 .cloud-zoom-gallery-thumbs a img{
     width: 50px;
+}
+
+.page-taxonomy-term #block-system-main{
+    display: none;
 }

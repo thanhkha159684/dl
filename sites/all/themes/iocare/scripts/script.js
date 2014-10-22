@@ -19,4 +19,7 @@ $(document).ready(function(){
         }
         return false;
     });
+    
+    $('#block-system-main-menu >.block-inner >ul >li.expanded >a').attr('href','#');
+    $('#block-system-main-menu >.block-inner >ul >li.expanded >a').click(function(){return false});
 });

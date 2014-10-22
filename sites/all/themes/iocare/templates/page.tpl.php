@@ -206,14 +206,15 @@
             <tbody>
               <tr>
                   <td>
-                      <ul>
-                          <li>Trụ sở chính TP.HCM<br>Địa chỉ: Lầu 3 Tòa nhà Copac, Số 12, Tôn Đản, Phường 13, Quận 4, TP.HCM<br>Hotline: (08) 3941 5383 - Mobile: 0916 568 817<br>Fax: (08) 3940 5034</li>
-                      </ul>
+                        <p>
+                        Email: suachuadonga@yahoo.com - nguyenductoan_2005@yahoo.com <br>
+                        Điện thoai: (08) 62 710720  0972 710720 <br>
+                        Địa chỉ: Vp:Số 20 đường 11 P.11 Q.Gò Vấp</p>
                   </td>
                   <td style="border-left: 1px solid #f8f8f8;padding-left:10%">
-                      <ul>
-                          <li>Văn phòng Hà Nội<br>Địa chỉ: 25 Thanh Miến, Quận Đống Đa, TP. Hà Nội<br>Hotline: (04) 3747 1649 - Mobile: 0969 893 225<br>Fax: (04) 3747 1650</li>
-                      </ul>
+                     <p>Cs1: 152 Bắc Hải P.6 Q.Tân Bình <br>
+                      Cs2: 83/17Q Hòa Hưng Phường 12 Q.10 <br>
+                      Cs3: 115/13 Nam Cao Phường Tân Phú Q. Thủ Đức</span></span></p>
                   </td>
                   </tr>
                 </tbody>
