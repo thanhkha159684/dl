@@ -1,0 +1,4 @@
+filename = quickstart
+description = "A quick template for new Drupal development."
+modules = strongarm block backup_migrate contextual ctools dblog demo entity entity_token field field_sql_storage field_ui file filter help image list menu module_filter node number options path rdf shortcut system taxonomy text token toolbar update user views_ui pathauto views features devel page_manager
+version = 1.1
