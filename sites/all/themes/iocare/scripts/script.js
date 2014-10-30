@@ -22,4 +22,17 @@ $(document).ready(function(){
     
     $('#block-system-main-menu >.block-inner >ul >li.expanded >a').attr('href','#');
     $('#block-system-main-menu >.block-inner >ul >li.expanded >a').click(function(){return false});
+    $('.cloud-zoom-container').click(function(){
+        var href = $(this).find('#wrap a').attr('href');
+        $.coloxbox({html:"sddsd"});
+        
+    }).trigger('click');
+  
 });
+if (Drupal.ajax) {
+        Drupal.ajax.prototype.commands.showcolorbox = function(ajax, response, status) {
+                    console.log(response);
+                    $.colorbox({html:response.data,width:500,height:500});
+        }
+}
+

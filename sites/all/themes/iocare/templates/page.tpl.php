@@ -165,7 +165,8 @@
 
                   </div>
                 <?php endif; ?>
-
+              <!-- !Breadcrumbs -->
+                <?php if ($breadcrumb): print $breadcrumb; endif; ?>
               </header>
             <?php endif; ?>
             <!-- !Main Content -->
