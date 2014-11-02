@@ -30,6 +30,9 @@ body,select,input,p,label,a{
     color: #333 ;    
 }
 
+#cboxLoadedContent{
+    background: #fff;
+}
 *{
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -243,7 +246,7 @@ top: 44px;
 margin: 0px;
 left: 0px;
 width: 970px;
-z-index: 10;
+z-index: 1000;
 background: url('images/bg-menu2.gif') repeat-x #DFDFDF;
 border: 1px solid #e0e0e0;
 min-height: 120px;
@@ -449,6 +452,9 @@ body .view-product-categories ul{
     margin: auto;
     
 }
+.product-list .views-field-field-body {
+    display:none;
+}
 .product-list .views-field-commerce-price{
     color:red;
     font-weight:bold;
@@ -462,13 +468,30 @@ body .view-product-categories ul{
 #block-views-product-listing-block .view-empty{
     padding:20px;
 }
-
+.view-product-detail .views-field{
+    float: right;
+    width: 60%;
+}
 .view-product-detail .views-field-field-images{
     float: left;
+    width: 40%;
     height: 350px;
 }
+.view-product-detail .views-field-title h1{
+    color:#555;
+    font-size: 16px;
+}
+
 .view-product-detail .views-field .field-content{
         display:inline;
+}
+.view-product-detail .views-field-commerce-price .field-content {
+display: block;
+font-size: 16px;
+color: #d02122;
+font-weight: bold;
+background: #f8f8f8;
+padding: 10px;
 }
 .cloud-zoom-container{
     width: 300px;
@@ -527,4 +550,21 @@ body .view-product-categories ul{
     border:none;
     color: #fff;
     padding: 4px 10px;
+}
+
+#tooltip {
+position:absolute;
+z-index:9999;
+opacity: .0;
+filter: alpha(opacity=00);
+-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=00)";
+ 
+/* Edit from here */
+width :auto;
+max-width: 300px;
+background-color:#efefef;
+border:1px solid #cccccc;
+padding: 3px;
+-moz-box-shadow: 2px 2px 11px #666;
+-webkit-box-shadow: 2px 2px 11px #666;
 }
