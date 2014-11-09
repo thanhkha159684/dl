@@ -1,5 +1,12 @@
 <?php
-
+function dl_core_init(){
+$breadcrumb = array();
+$breadcrumb[] = l('Home', '<front>');
+$breadcrumb[] = l('Topics', 'taxonomy/term/1');
+$breadcrumb[] = l(drupal_get_title(),current_path()); // Link to current URL
+// Set Breadcrumbs
+drupal_set_breadcrumb($breadcrumb);
+}
 function dl_core_menu() {
   $items = array();
   $items['get_current_cart_state'] = array(
@@ -111,10 +118,11 @@ function dl_core_ajax_cart_callback(&$form, &$form_state){
   global $user;
   $form = drupal_rebuild_form($form['#form_id'], $form_state, $form);
   $commands = array();
+  
  // $commands[] = ajax_command_replace('.' . drupal_html_class($form['#form_id']), drupal_render($form));
   $cart = module_invoke('commerce_cart','block_view','cart');
-  //module_load_include('inc','commerce_cart','pages');
-  $cart_form = dl_core_commerce_cart_view();
+  $pid = $form_state['default_product']->product_id;
+  $cart_form = dl_core_commerce_cart_view($pid);
   $commands[] = ajax_command_replace('.cart-contents',$cart['content']);
   //$commands[] = ajax_command_prepend('.cart-contents', theme('status_messages'));
   $commands[] = array(
@@ -124,34 +132,43 @@ function dl_core_ajax_cart_callback(&$form, &$form_state){
   return array('#type' => 'ajax', '#commands' => $commands);
 }
 
- function dl_core_commerce_cart_view() {
+ function dl_core_commerce_cart_view($pid) {
   global $user;
-
-  // Default to displaying an empty message.
-  $content = theme('commerce_cart_empty_page');
-
-  // First check to make sure we have a valid order.
-  if ($order = commerce_cart_order_load($user->uid)) {
-    $wrapper = entity_metadata_wrapper('commerce_order', $order);
-
-    // Only show the cart form if we found product line items.
-    if (commerce_line_items_quantity($wrapper->commerce_line_items, commerce_product_line_item_types()) > 0) {
-
-      // Add the form for editing the cart contents.
-      $content = commerce_embed_view('commerce_cart_form', 'default', array($order->order_id), 'cart');
-    }
-  }
-
+  
+  $content = '<div class="order-review">';
+  $order = commerce_cart_order_load($user->uid);
+  $content .= commerce_embed_view('lastest_proruct_in_cart','block_1', array($order->order_id,$pid),'cart');
+  $line_items = $order->commerce_line_items['und'];
+  
+  $wrapper = entity_metadata_wrapper('commerce_order', $order);
+  $quantity = commerce_line_items_quantity($wrapper->commerce_line_items, commerce_product_line_item_types());
+  $total = $order->commerce_order_total['und'][0];
+  $amount = commerce_currency_format(
+      $total['amount'], 
+      $total['currency_code']
+    );
+  $content .= '<span class="odtotal">
+              <div>Trị giá đơn hàng :<span class="odprice">'.$amount.'</span></div>
+              <div>Giỏ hàng của bạn hiện có '.$quantity.' sản phẩm</div>
+              </span>
+              <span class="odactions">
+              <a id="colorboxClose"> Tiếp tục mua hàng</a>
+              <a href ="/cart"> Xem giỏ hàng</a>
+              <a href ="/checkout"> Thanh toán</a>
+              </span>
+              ';
+  $content .= '<h2 class="block-title">Có thể bạn muốn xem</h2>';
+  $content.= views_embed_view('related_product','block_1');
+  $content .= '</div>';
   return $content;
 }
 
 
 
 /*
- * Homepage:remove temr root empty
+ * Homepage:remove term root empty
  */
 function dl_core_check_root_term_empty_product(&$data){
-  
   if(isset($data->views_field_view_view) && isset($data->taxonomy_term_data_name)) {
     print l($data->taxonomy_term_data_name,'taxonomy/term/'.$data->tid,array('attributes'=>array('class'=>"block-title"))).$data->views_field_view_view;
   } else {

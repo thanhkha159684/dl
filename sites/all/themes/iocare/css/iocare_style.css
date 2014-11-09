@@ -47,7 +47,9 @@ body{
     background: url("images/retina_wood.png");
 }
 
-
+fieldset {
+    border:none;
+}
 
 footer{
     position: relative;
@@ -137,20 +139,22 @@ header{
     padding: 10px;
 }
 #logo{
-    width: 80px;
-border: 2px solid rgb(136, 126, 173);
-border-radius: 50px;
-float: left;    
+ width: 127px;
+float: left;
 padding: 13px 8px;
-margin-left: 30px;
-    
+position: relative;
+margin-left: 149px;
+z-index: 2;
 }
 #slogan{
   padding: 10px 0px;  
   padding-left:20px;
   text-align:center;
   float:left;
-  
+position: relative;
+z-index: 2;
+clear: both;
+
 }
 #slogan .large{
     font-size:20px;
@@ -169,17 +173,17 @@ margin-left: 30px;
     position:relative;
 }
 #header:before {
-    content :"";
-    width:100%;
-    height:333px;
-    position:absolute;
-    top:10px;
-    left:0px;
-    background : url("images/banner.jpg") no-repeat;
-    background-size: cover;
+content: "";
+width: 100%;
+height: 200px;
+position: absolute;
+top: 5px;
+left: 0;
+background: url("images/banner.jpg") no-repeat;
+background-size: cover;
 }
 #block-system-main-menu {
-margin: 302px 0px 0px;    
+margin: 45px 0px 0px;    
 position:relative;
 padding-bottom: 20px;
 background: url("images/bg_menu.gif") no-repeat;
@@ -295,11 +299,13 @@ overflow: hidden;
 .theme-light .nivo-caption{
     display: none !important;
 }
-#columns .block .block-title{
+#columns .block .block-title,
+fieldset legend{
     font-size: 1.5em;    
      font-family: SEGOEUIL;
 }
-#content .block-title{
+#content .block-title,
+fieldset legend{
     color:#d02122;
     font-weight:bold;
     border-top: 1px solid #ccc !important;
@@ -435,12 +441,14 @@ body .view-product-categories ul{
     text-align: center;
     padding: 10px;
     position:relative;
-    min-height: 265px;
+    
 }
 .product-list .views-row:nth-child(4n){
     margin-right :0px;
 }
-
+.product-list .views-row:nth-child(4n +1){
+    clear: left;
+}
 .product-list .views-field-nid{
     width:100%;
     height: 140px;
@@ -452,12 +460,18 @@ body .view-product-categories ul{
     margin: auto;
     
 }
+.product-list .views-field-title a{
+    color: #000;
+    font-size: 13px;
+    
+}
 .product-list .views-field-field-body {
     display:none;
 }
 .product-list .views-field-commerce-price{
     color:red;
     font-weight:bold;
+    
 }
 .product-list .views-field-add-to-cart-form{
     position:absolute;
@@ -513,9 +527,10 @@ padding: 10px;
 
 }
 #cloud-zoom-big{
-    width: 350px !important;
-    height:300px !important;
+    /*width: 450px !important;
+    height:350px !important;*/
     background-repeat: no-repeat !important;
+    border: 1px solid #ccc;
 }
 .mousetrap{
     background-repeat: no-repeat !important;
@@ -523,7 +538,8 @@ padding: 10px;
 
 }
 .cloud-zoom-lens{
-    display:none !important;
+    border: 1px solid #ccc;
+    cursor: move;
 }
 .cloud-zoom-gallery-thumbs{
     width: 100%;
@@ -567,4 +583,93 @@ border:1px solid #cccccc;
 padding: 3px;
 -moz-box-shadow: 2px 2px 11px #666;
 -webkit-box-shadow: 2px 2px 11px #666;
+}
+
+#tooltip .tooltip-item.title a{
+    color: #333;
+    display: block;
+    padding: 10px;
+    text-transform: uppercase;
+}
+
+.view-lastest-proruct-in-cart{
+float:left;
+width:60%
+}
+.view-lastest-proruct-in-cart .views-field-field-images{
+float:left;
+margin-right:10px;
+width:150px
+}
+.view-lastest-proruct-in-cart .views-field-line-item-title a{
+color:#333;
+font-size:20px;
+display:block;
+padding-bottom:10px;
+text-transform:uppercase;
+}
+.view-lastest-proruct-in-cart .views-field-commerce-unit-price .field-content{
+display:inline;
+font-weight:bold;
+color:red
+}
+.order-review{
+    padding: 20px;
+}
+.order-review .odtotal{
+float:right;
+width:40%;
+padding:10px;
+border:1px solid #ccc;
+}
+.order-review .odtotal .odprice{
+color:red;
+font-weight:bold;
+
+}
+.order-review .block-title{
+clear:both;
+color: #D02122;
+font-weight: bold;
+border-top: 1px solid rgb(204, 204, 204) !important;
+border-bottom: 1px solid #CCC;
+padding: 10px 10px !important;
+float: left;
+width: 100%;
+font-size: 1.5em;
+font-family: SEGOEUIL;
+
+}
+
+.order-review .view-related-product img{
+height:100%;
+width:auto;
+}
+.view-commerce-cart-form th,
+.view-commerce-cart-summary  th{
+    color: #d02122;
+    text-align: left;
+}
+.view-commerce-cart-form tr,
+.view-commerce-cart-summary tr{
+    background: transparent;
+}
+.view-commerce-cart-form input[type="text"]{
+    text-align: center;
+}
+
+.order-review .odactions a{
+border-radius: 20px;
+color: #333;
+padding: 3px 10px;
+display: inline-block;
+margin: 14px 0px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+[id^="commerce-checkout-form-checkout"] label{
+    color: #555;
+}
+tr.info, tr.even, tr:nth-child(2n+2){
+    background: transparent;
 }
