@@ -1,11 +1,6 @@
 <?php
 function dl_core_init(){
-$breadcrumb = array();
-$breadcrumb[] = l('Home', '<front>');
-$breadcrumb[] = l('Topics', 'taxonomy/term/1');
-$breadcrumb[] = l(drupal_get_title(),current_path()); // Link to current URL
-// Set Breadcrumbs
-drupal_set_breadcrumb($breadcrumb);
+
 }
 function dl_core_menu() {
   $items = array();
@@ -28,9 +23,6 @@ function dl_core_get_current_cart_state() {
  */
 function dl_core_block_info() {
   return array(
-    'user_hearder_block' => array(
-      'info' => t("User Header Block"),
-    ),
     'term_procduct_listing' => array(
       'info' => t("dl_core: Sản phẩm trong danh mục"),
     ),
@@ -44,9 +36,6 @@ function dl_core_block_info() {
 function dl_core_block_view($delta="") {
   $block = array();
   switch ($delta) {
-    case "user_hearder_block":
-    $block['content'] = iocare_core_user_header_block();
-    break;
    case "term_procduct_listing":
     $term = menu_get_object('taxonomy_term',2);
     if (@$term->vocabulary_machine_name=='product_category') {
