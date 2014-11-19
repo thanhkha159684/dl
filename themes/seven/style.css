@@ -993,3 +993,9 @@ div.add-or-remove-shortcuts {
   -webkit-border-radius: 8px;
   border-radius: 8px;
 }
+
+
+
+.ief-form > .fieldset-wrapper{
+  background: transparent !important;
+}

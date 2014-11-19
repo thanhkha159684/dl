@@ -1,6 +1,5 @@
 <?php
 function dl_core_init(){
-
 }
 function dl_core_menu() {
   $items = array();
@@ -89,6 +88,8 @@ function dl_core_user_header_block() {
  */
 function dl_core_form_alter(&$form,&$form_state,$form_id) {
   if ($form_id=="product_node_form") {
+    $form['field_product']['und']['form']['commerce_price']['und'][0]['amount']['#title'] = t('Giá');
+    $form['field_product']['und']['form']['commerce_stock']['und'][0]['value']['#title'] = t('Số lượng trong kho');
     $form['field_product']['und']['form']['title']['#access'] = false;
   }
 }

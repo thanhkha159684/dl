@@ -1353,7 +1353,7 @@ function commerce_order_calculate_total($order) {
 
   foreach ($order_wrapper->commerce_line_items as $delta => $line_item_wrapper) {
     // Convert the line item's total to the order's currency for totalling.
-    $component_total = commerce_price_component_total($line_item_wrapper->commerce_total->value());
+    $component_total = $line_item_wrapper->commerce_total->value();
 
     // Add the totals.
     $amount += commerce_currency_convert(
