@@ -535,7 +535,7 @@ function theme_commerce_price_formatted_components($variables) {
     $rows[] = array(
       'data' => array(
         array(
-          'data' => $component['title'],
+          'data' => 'Tổng tiền',
           'class' => array('component-title'),
         ),
         array(

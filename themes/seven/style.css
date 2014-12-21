@@ -999,3 +999,19 @@ div.add-or-remove-shortcuts {
 .ief-form > .fieldset-wrapper{
   background: transparent !important;
 }
+.field-name-field-total-profit {
+  float:right;
+  clear:both;
+  width:31%;
+  padding:10px 1%;
+  background-color: #D3E9F4;
+  font-weight: bold;
+  border:1px solid #ccc;
+  margin-bottom: 10px;
+}
+.field-name-field-total-profit div{
+  float:left;
+}
+.field-name-field-total-profit div:last-child{
+  float:right;
+}

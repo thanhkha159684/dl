@@ -51,7 +51,7 @@ $(document).ready(function(){
     
     
     
-    
+            
     
     
     
@@ -102,6 +102,21 @@ $(document).ready(function(){
         if ($(this).text()=="Order total") $(this).text("Tổng hóa đơn");
         
     });
+    
+    $('.buy-with-unit a').click(function(){
+        var parent = $(this).closest('form');
+        parent.toggleClass('show');
+        if (parent.hasClass('show')) {
+            $('.form-item.form-type-textfield',parent).slideDown(0);
+            $('.form-item.form-item-quantity',parent).slideUp(0);
+            $(this).text('Mua chẵn');
+        } else {
+            $(this).text('Mua lẻ');
+            $('.form-item.form-type-textfield',parent).slideUp(0);
+            $('.form-item.form-item-quantity',parent).slideDown(0);
+        }
+    });
+    
 });
 
 Drupal.behaviors.dl_core = {

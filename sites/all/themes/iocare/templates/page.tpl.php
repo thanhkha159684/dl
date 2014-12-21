@@ -101,7 +101,7 @@
 
 
       <div id="logo">
-        <a href="/"><img src="/<?php print path_to_theme();?>/logo.png"/></a>
+        <a href="/"><img src="<?php print url(path_to_theme().'/logo.png');?>"/></a>
       </div>
       <div id="slogan">
         CÔNG TY THNH THƯƠNG MẠI VÀ DỊCH VỤ - SỬA CHỮA
@@ -206,17 +206,14 @@
           <table class="footer-info">
             <tbody>
               <tr>
-                  <td>
+                  <td style="text-align:center">
                         <p>
-                        Email: suachuadonga@yahoo.com - nguyenductoan_2005@yahoo.com <br>
+                        Công ty TNHH Thương mại - Dịch vụ Đông Á  
+                        Email: dienlanhdonga@gmail.com <br>
                         Điện thoai: (08) 62 710720  0972 710720 <br>
-                        Địa chỉ: Vp:Số 20 đường 11 P.11 Q.Gò Vấp</p>
+                        Địa chỉ:Số 53 đường 11 P.11 Q.Gò Vấp</p>
                   </td>
-                  <td style="border-left: 1px solid #f8f8f8;padding-left:10%">
-                     <p>Cs1: 152 Bắc Hải P.6 Q.Tân Bình <br>
-                      Cs2: 83/17Q Hòa Hưng Phường 12 Q.10 <br>
-                      Cs3: 115/13 Nam Cao Phường Tân Phú Q. Thủ Đức</span></span></p>
-                  </td>
+                  
                   </tr>
                 </tbody>
           </table>

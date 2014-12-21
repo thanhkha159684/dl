@@ -1,6 +1,199 @@
 <?php
-function dl_core_init(){
+function dl_core_init() {
+ 
+ 
 }
+function dl_core_entity_presave($entity, $type) {
+  
+  if (@$entity->type && $entity->type == 'products_group') {
+    $entity->field_images = array();
+    foreach ($entity->field_product_include['und'] as $item) {
+      $product = commerce_product_load($item['product_id']);
+      
+      if (!empty($product->field_images)) {
+      $entity->field_images['und'][] =$product->field_images['und'][0];
+      }
+      
+    }
+  }
+  if ($type =="commerce_line_item") {
+    
+    $product = commerce_product_load($entity->commerce_product['und'][0]['product_id']);
+    
+    if ($product->type=="products_group") {
+    
+      if (isset($product->field_product_include['und'])) {
+        
+        $entity->field_profit = $product->commerce_price;      
+        
+        foreach  ($product->field_product_include['und'] as $pid) {
+          $child = commerce_product_load($pid['product_id']);
+          $entity->field_profit['und'][0]['amount'] -= $child->field_base_price['und'][0]['amount']  ;
+          
+          if (!empty($entity->field_line_item_base_price)) {
+            $entity->field_line_item_base_price['und'][0]['amount']  +=  $child->field_base_price['und'][0]['amount'];
+          }
+          else {
+            $entity->field_line_item_base_price  =  $child->field_base_price;
+          }
+        }
+        $entity->field_profit['und'][0]['amount'] *= $entity->quantity;
+        
+      }
+    } else {
+      if (isset($entity->field_unit['und'][0]['value'])) {
+        if ($entity->quantity !=1) {
+        $entity->quantity = 1;
+          drupal_set_message(t('Nếu mua lẻ bạn không thể nhập quá số lượng 1 sản phẩm'));
+        }
+        
+        
+        $entity->commerce_unit_price['und'][0]['amount']  = $product->field_base_sale_price['und'][0]['amount'] ;
+        $entity->commerce_total['und'][0]['amount'] = $entity->field_unit['und'][0]['value'] * $entity->commerce_unit_price['und'][0]['amount'] * $entity->quantity;  
+        if (!empty($product->field_base_sale_price) && !empty($product->field_base_price)) {
+          $entity->field_profit = $product->field_base_price;
+          if (empty($product->field_total_multiplier['und'][0]['value'])) {
+            $product->field_total_multiplier['und'][0]['value'] = 1;
+          }
+          
+          $entity->field_profit['und'][0]['amount'] =  $product->field_base_price['und'][0]['amount']/$product->field_total_multiplier['und'][0]['value'];
+          
+          $entity->field_profit['und'][0]['amount'] =  $product->field_base_sale_price['und'][0]['amount'] - $entity->field_profit['und'][0]['amount'];
+          
+          $entity->field_profit['und'][0]['amount'] *= $entity->field_unit['und'][0]['value']* $entity->quantity;
+        
+          $entity->field_line_item_base_price  =  $product->field_base_price;
+          $entity->field_line_item_base_price['und'][0]['amount'] /= $product->field_total_multiplier['und'][0]['value'];
+          
+          
+          
+        
+        }
+        
+      } else {
+        if (!empty($product->field_base_price)) {
+          $entity->field_profit = $product->field_base_price;
+          $entity->field_profit['und'][0]['amount'] = $product->commerce_price['und'][0]['amount'] - $entity->field_profit['und'][0]['amount'];
+          $entity->field_profit['und'][0]['amount'] *= $entity->quantity;
+          $entity->field_line_item_base_price  =  $product->field_base_price;
+        }
+        
+      }
+    }
+    
+   
+  }
+  if ($type == 'commerce_product') {/*
+    $original = $entity->original;
+ 
+
+    if (empty($entity->commerce_stock['und'][0]['value'])) {
+      $entity->commerce_stock['und'][0]['value'] = 0;
+    }
+    if (!@$original->commerce_stock['und'][0]['value'])
+    $original->commerce_stock['und'][0]['value'] = 0;
+    
+    $stock = $entity->commerce_stock['und'][0]['value'] - $original->commerce_stock['und'][0]['value'];
+    if (empty ($entity->field_total_multiplier['und'][0]['value'])) {
+      $entity->field_total_multiplier['und'][0]['value'] = 0;
+    }
+    if (empty ($original->field_total_multiplier['und'][0]['value'])) {
+      $original->field_total_multiplier['und'][0]['value'] = 0;
+    }
+    $multiply = $entity->field_total_multiplier['und'][0]['value'] - $original->field_total_multiplier['und'][0]['value'];
+    
+    
+    if ($entity->field_total_multiplier['und'][0]['value'] == 0){
+          $entity->field_total_stock['und'][0]['value'] =0;
+    }  else {
+
+      if (empty($entity->field_total_stock['und'][0]['value']) || $entity->field_total_stock['und'][0]['value'] ==0) {      
+        $s = ($value = $entity->commerce_stock['und'][0]['value'])?$value:1;
+        $m = ($value = $entity->field_total_multiplier['und'][0]['value'])?$value:1;
+        $entity->field_total_stock['und'][0]['value'] = $s * $m;
+      } else {
+      
+          
+        if ($multiply != 0 && $stock == 0) {
+          $entity->field_total_stock['und'][0]['value'] += $multiply *$entity->commerce_stock['und'][0]['value'];
+        } else if ($multiply == 0 && $stock != 0)  {
+          $entity->field_total_stock['und'][0]['value'] += $stock * $entity->field_total_multiplier['und'][0]['value'];
+         
+        }
+      
+      }
+    }
+    
+
+    */
+  }
+  
+  if ($type == "commerce_order") {
+    $order = &$entity;
+    $original = isset($order->original)?$order->original:$order;
+    $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
+    
+    if ($order->status == 'completed' && $original ->status != "completed" ) {
+      $add_stock = -1;
+    }
+    if ($order->status != 'completed' && $original ->status == "completed" ) {
+      $add_stock = 1;
+    }
+    
+    
+    $total_profit = 0;
+    foreach ($order_wrapper->commerce_line_items as $delta => $line_item_wrapper) {
+      if (!$line_item = $line_item_wrapper->value()) {
+        // Remove the reference from the order and continue to the next value.
+        $order_wrapper->commerce_line_items->offsetUnset($delta);
+        continue;
+      }
+      
+        
+        
+      if (!empty($add_stock)) {   
+        $product = $line_item_wrapper->commerce_product->value();
+        //dsm($product);
+        
+        if ($product->type=="products_group") {
+          if (isset($product->field_product_include['und'])) {             
+            foreach  ($product->field_product_include['und'] as $pid) {
+              $child = commerce_product_load($pid['product_id']);
+              $child->field_total_stock['und'][0]['value'] += $line_item->quantity * $add_stock;
+              commerce_product_save($child);
+            }
+            
+          }
+             
+        } else {
+          if (@$line_item->field_unit['und'][0]['value'] && @$product->field_total_multiplier['und'][0]['value']) {
+           $product->field_total_stock['und'][0]['value']  += ($line_item->field_unit['und'][0]['value']
+                                                              / $product->field_total_multiplier['und'][0]['value']
+                                                              * $line_item->quantity) * $add_stock; 
+          
+          } else {
+           $product->field_total_stock['und'][0]['value'] += $line_item->quantity * $add_stock;
+          }
+          commerce_product_save($product);
+        }
+      }
+      // calculate order total profit
+      if (isset($line_item->field_profit['und'][0]['amount'])) {
+        $total_profit += $line_item->field_profit['und'][0]['amount'];
+      }
+    
+    }
+    
+    $order->field_total_profit = $order->commerce_order_total;
+    $order->field_total_profit['und'][0]['amount'] = $total_profit;
+      
+    
+    
+  }
+  
+  
+}
+
 function dl_core_menu() {
   $items = array();
   $items['get_current_cart_state'] = array(
@@ -11,6 +204,9 @@ function dl_core_menu() {
   );
   
   return $items;
+}
+function dl_core_menu_alter(&$menu) {
+  
 }
 
 function dl_core_get_current_cart_state() {
@@ -87,10 +283,52 @@ function dl_core_user_header_block() {
  * Hook form_alter
  */
 function dl_core_form_alter(&$form,&$form_state,$form_id) {
+  
+  
+  if ($form_id=="commerce_order_ui_order_form") {
+    $form['field_billing_info']['und']['#required'] = false;
+  }
+  
+  if($form_id=='user_profile_form') {
+    if (!user_access('administer permissions')) {
+      unset($form['account']['roles']['#options'][3]);  
+      if( arg(1) == 1) {
+        $form['#access'] = false;
+      }    
+    }
+    
+    
+    
+  }
+  if ($form_id == "user_admin_account") {
+    unset($form['accounts']['#options'][1]); 
+  }
+  
+  
   if ($form_id=="product_node_form") {
     $form['field_product']['und']['form']['commerce_price']['und'][0]['amount']['#title'] = t('Giá');
     $form['field_product']['und']['form']['commerce_stock']['und'][0]['value']['#title'] = t('Số lượng trong kho');
+    $form['field_product']['und']['form']['commerce_stock']['und'][0]['value']['#access'] = false;
     $form['field_product']['und']['form']['title']['#access'] = false;
+    
+  }
+  preg_match('/commerce_cart_add_to_cart_form/i', $form_id, $result);
+  if (@$result) {
+    if (isset ($form['product_id']['#value'])) {
+      $product = commerce_product_load($form['product_id']['#value']);
+      if ($product->type =="products_group"
+          || empty($product->field_total_multiplier)
+          || empty($product->field_base_sale_price )
+          || empty($product->field_multiplier_extend))
+      {
+        unset($form['line_item_fields']['field_unit']);
+      } else {
+        
+        $extend = $product->field_multiplier_extend['und'][0]["value"] == 1 ? 'kg' :'mét';    
+        $form['line_item_fields']['field_unit']['und'][0]["value"]['#prefix'] ='<div class="buy-with-unit"><a>Mua lẻ</a></div>';
+        $form['line_item_fields']['field_unit']['und'][0]['extend']['#markup'] ='<span class="multiply_extend">'.$extend.'</span>';
+      }
+    }
   }
 }
 
@@ -175,4 +413,57 @@ function clear_cache_form() {
         db_query("DELETE FROM {cache_form} WHERE 1");     
       }
     }
+}
+
+function dl_core_calculate_views_total_order($results){
+  $order_total = $order_total_profit =  0;
+  foreach ($results as $order) {
+    if (@$order->field_commerce_order_total) {
+      
+        $order_total += $order->field_commerce_order_total[0]['raw']['amount'];
+      
+    }
+    if (@$order->field_field_total_profit) {
+      
+        $order_total_profit += $order->field_field_total_profit[0]['raw']['amount'];
+      
+    }
+    
+  }
+  print'
+ <div class="field field-name-field-total-profit">
+  <div class="field-label">Tổng giá trị : 
+  </div>
+  <div class="field-items">
+ '.commerce_currency_format($order_total,'VND').'
+  </div>
+</div>
+
+<div class="field field-name-field-total-profit">
+  <div class="field-label">Mức lời: 
+  </div>
+  <div class="field-items">
+ '.commerce_currency_format($order_total_profit,'VND').'
+  </div>
+</div>  
+  ';
+  
+
+}
+
+function dl_core_calculate_total_stock() {
+  $results = views_get_view_result('total_stock');
+  $total_stock = 0;
+  foreach ($results as $product) {
+    $total_stock +=  $product->field_field_base_price[0]['raw']['amount'] *$product->field_field_total_stock[0]['raw']['value'];
+  }
+  
+  return '
+<div class="field field-name-field-total-profit clearfix" style="float:left ;">
+  <div class="field-label">Tổng tiền hàng còn lại trong kho :
+  </div>
+  <div class="field-items">
+ '.commerce_currency_format($total_stock,'VND').'
+  </div>
+</div> <div class="clearfix"></div> ';
 }
